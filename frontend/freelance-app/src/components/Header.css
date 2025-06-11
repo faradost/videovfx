@@ -1,0 +1,65 @@
+.app-header {
+  background-color: #f8f9fa;
+  padding: 10px 20px;
+  border-bottom: 1px solid #e7e7e7;
+}
+
+.header-content {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  max-width: 1200px;
+  margin: 0 auto;
+}
+
+.app-header h1 {
+  margin: 0;
+  font-size: 1.8em;
+}
+.app-header h1 a {
+  color: #333;
+  text-decoration: none;
+}
+
+.app-header nav ul {
+  list-style: none;
+  padding: 0;
+  margin: 0;
+  display: flex;
+  align-items: center;
+}
+
+.app-header nav ul li {
+  margin-left: 20px;
+}
+
+.app-header nav ul li a,
+.app-header nav ul li .logout-button {
+  text-decoration: none;
+  color: #007bff;
+  font-size: 1em;
+  cursor: pointer;
+}
+
+.app-header nav ul li .logout-button {
+  background: none;
+  border: none;
+  padding: 0;
+  color: #dc3545; /* A bit of danger color for logout */
+}
+
+.app-header nav ul li a:hover,
+.app-header nav ul li .logout-button:hover {
+  text-decoration: underline;
+  color: #0056b3;
+}
+.app-header nav ul li .logout-button:hover {
+    color: #c82333;
+}
+
+
+.welcome-message {
+  margin-right: 10px; /* Replaced margin-left with margin-right for consistency */
+  color: #555;
+  font-size: 0.9em;
+}

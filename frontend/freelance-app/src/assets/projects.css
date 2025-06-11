@@ -1,0 +1,157 @@
+.projects-list-container {
+  padding: 20px;
+  max-width: 1000px;
+  margin: 20px auto;
+}
+
+.projects-list-container h2 {
+  text-align: center;
+  margin-bottom: 30px;
+  color: #333;
+}
+
+.loading-message,
+.error-message-projects { /* Differentiated from general .error-message */
+  text-align: center;
+  font-size: 1.2em;
+  padding: 20px;
+}
+
+.error-message-projects {
+  color: #d9534f; /* Bootstrap danger color */
+}
+
+.projects-grid {
+  display: grid;
+  grid-template-columns: repeat(auto-fill, minmax(300px, 1fr));
+  gap: 20px;
+}
+
+.project-item-card {
+  border: 1px solid #ddd;
+  border-radius: 8px;
+  padding: 20px;
+  background-color: #fff;
+  box-shadow: 0 2px 5px rgba(0, 0, 0, 0.05);
+  display: flex;
+  flex-direction: column;
+  justify-content: space-between; /* Pushes button to the bottom */
+}
+
+.project-item-card h3 {
+  margin-top: 0;
+  margin-bottom: 10px;
+  font-size: 1.4em;
+  color: #007bff;
+}
+
+.project-item-card .project-detail {
+  margin-bottom: 8px;
+  font-size: 0.95em;
+  color: #555;
+}
+
+.project-item-card .project-detail strong {
+  color: #333;
+}
+
+.project-description {
+  font-size: 0.9em;
+  color: #666;
+  line-height: 1.5;
+  margin-bottom: 15px;
+  flex-grow: 1; /* Allows description to take available space */
+}
+
+.view-details-button {
+  display: inline-block;
+  padding: 8px 15px;
+  background-color: #007bff;
+  color: white;
+  text-decoration: none;
+  border-radius: 4px;
+  text-align: center;
+  transition: background-color 0.2s ease-in-out;
+  margin-top: auto; /* Pushes button to bottom if content above is short */
+}
+
+.view-details-button:hover {
+  background-color: #0056b3;
+}
+
+/* Styles for Project Detail Page */
+.project-detail-container {
+  padding: 20px;
+  max-width: 900px;
+  margin: 20px auto;
+  background-color: #fff;
+  border: 1px solid #ddd;
+  border-radius: 8px;
+  box-shadow: 0 2px 8px rgba(0,0,0,0.05);
+}
+
+.project-detail-container h2 { /* Project Title */
+  color: #007bff;
+  margin-bottom: 15px;
+  border-bottom: 2px solid #eee;
+  padding-bottom: 10px;
+}
+
+.project-meta-info {
+  margin-bottom: 20px;
+  padding-bottom: 20px;
+  border-bottom: 1px solid #eee;
+}
+
+.project-meta-info p {
+  margin: 5px 0;
+  font-size: 1em;
+  color: #555;
+}
+
+.project-meta-info strong {
+  color: #333;
+  margin-right: 8px;
+}
+
+.project-full-description {
+  margin-top: 20px;
+  margin-bottom: 30px;
+  line-height: 1.6;
+  color: #333;
+}
+
+.bids-section {
+  margin-top: 30px;
+}
+
+.bids-section h3 {
+  color: #333;
+  margin-bottom: 15px;
+  border-bottom: 1px solid #eee;
+  padding-bottom: 10px;
+}
+
+.bid-item {
+  border: 1px solid #e7e7e7;
+  border-radius: 6px;
+  padding: 15px;
+  margin-bottom: 15px;
+  background-color: #f9f9f9;
+}
+
+.bid-item p {
+  margin: 5px 0;
+  font-size: 0.95em;
+}
+
+.bid-item strong {
+  color: #333;
+}
+
+.no-bids-message {
+  text-align: center;
+  font-style: italic;
+  color: #777;
+  padding: 15px;
+}
