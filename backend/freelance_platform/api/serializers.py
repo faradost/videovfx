@@ -1,6 +1,6 @@
 from django.contrib.auth import get_user_model
 from rest_framework import serializers
-from .models import Project, User # Import Project, User models
+from .models import Project, User, Bid, Review # Import Project, User, Bid, Review models
 
 # User = get_user_model() # We are using User from .models
 

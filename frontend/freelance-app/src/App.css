@@ -1,5 +1,18 @@
 .App {
-  text-align: center;
+  /* text-align: center; */ /* Default CRA, can be overridden by components or specific needs */
+}
+
+/* Global RTL text alignment for the app if not specified by components */
+[dir="rtl"] .App {
+  /* text-align: right; */ /* Or remove if components handle their own alignment */
+}
+
+/* Ensure main content and footer can adapt if specific padding/margins are added later */
+[dir="rtl"] .app-main-content {
+  /* e.g., if padding-left was LTR: padding-right: var(--main-padding); padding-left: auto; */
+}
+[dir="rtl"] .app-footer {
+  /* e.g., text-align: right; */
 }
 
 .App-logo {

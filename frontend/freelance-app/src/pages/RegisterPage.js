@@ -1,10 +1,12 @@
 import React, { useState } from 'react';
-import { useNavigate } from 'react-router-dom';
+import { useNavigate, Link } from 'react-router-dom'; // Added Link
 import apiClient from '../services/api';
-import '../assets/forms.css'; // Import basic form styling
+import { useTranslation } from 'react-i18next'; // Import useTranslation
+import '../assets/forms.css';
 
 function RegisterPage() {
   const navigate = useNavigate();
+  const { t } = useTranslation(); // Initialize useTranslation
   const [formData, setFormData] = useState({
     username: '', // Required by Django AbstractUser, even if email is login field
     full_name: '',
@@ -28,18 +30,20 @@ function RegisterPage() {
 
   const validateForm = () => {
     const newErrors = {};
-    if (!formData.username.trim()) newErrors.username = 'Username is required.';
-    if (!formData.full_name.trim()) newErrors.full_name = 'Full name is required.';
+    if (!formData.username.trim()) newErrors.username = t('fieldRequiredError', { fieldName: t('usernameLabel') });
+    if (!formData.full_name.trim()) newErrors.full_name = t('fieldRequiredError', { fieldName: t('fullNameLabel') });
     if (!formData.email.trim()) {
-      newErrors.email = 'Email is required.';
+      newErrors.email = t('fieldRequiredError', { fieldName: t('emailLabel') });
     } else if (!/\S+@\S+\.\S+/.test(formData.email)) {
-      newErrors.email = 'Email is invalid.';
+      // This specific error message "Email is invalid" might need its own translation key
+      // For now, let's use a generic one or assume it's part of a backend response if more specific.
+      newErrors.email = t('fieldRequiredError', { fieldName: t('emailLabel') }); // Placeholder, ideally a more specific key
     }
-    if (!formData.password) newErrors.password = 'Password is required.';
+    if (!formData.password) newErrors.password = t('fieldRequiredError', { fieldName: t('passwordLabel') });
     if (formData.password !== formData.confirm_password) {
-      newErrors.confirm_password = 'Passwords do not match.';
+      newErrors.confirm_password = t('passwordsDontMatchError');
     }
-    if (!formData.user_type) newErrors.user_type = 'User type is required.';
+    if (!formData.user_type) newErrors.user_type = t('fieldRequiredError', { fieldName: t('userTypeLabel')}); // Or more specific
 
     setErrors(newErrors);
     return Object.keys(newErrors).length === 0;
@@ -82,21 +86,36 @@ function RegisterPage() {
               formattedErrors[key] = backendErrors[key];
             }
           }
-          // If there's a non_field_errors or detail, show it as a general server error
+          // Handle specific known error keys from backend if they are translation keys
+          if (formattedErrors.username && formattedErrors.username.includes("already exists")) {
+            setErrors(prev => ({...prev, username: t('usernameExistsError') }));
+            delete formattedErrors.username; // Prevent double display
+          }
+          if (formattedErrors.email && formattedErrors.email.includes("already exists")) {
+             setErrors(prev => ({...prev, email: t('emailExistsError') }));
+             delete formattedErrors.email;
+          }
+
           if (formattedErrors.detail) {
-            setServerError(formattedErrors.detail);
+            setServerError(formattedErrors.detail); // Use backend detail directly if not a key
             delete formattedErrors.detail;
           }
           if (formattedErrors.non_field_errors) {
-            setServerError(formattedErrors.non_field_errors);
+            setServerError(formattedErrors.non_field_errors.join(' ')); // Join if array
             delete formattedErrors.non_field_errors;
           }
-          setErrors(prev => ({...prev, ...formattedErrors}));
+          setErrors(prev => ({...prev, ...formattedErrors})); // Set remaining field errors
+
+          // If no specific field errors were set from backend but there was a general issue
+          if (Object.keys(formattedErrors).length === 0 && !serverError) {
+             setServerError(t('genericRegistrationError'));
+          }
+
         } else {
-          setServerError('Registration failed. Please try again.');
+          setServerError(t('genericRegistrationError'));
         }
       } else {
-        setServerError('An unexpected error occurred. Please try again.');
+        setServerError(t('genericRegistrationError')); // More generic error
         console.error('Registration error:', error);
       }
     }
@@ -104,12 +123,12 @@ function RegisterPage() {
 
   return (
     <div className="form-container">
-      <h2>Create an Account</h2>
+      <h2>{t('registrationPageTitle')}</h2>
       <form onSubmit={handleSubmit} className="form" noValidate>
         {serverError && <div className="form-errors"><p>{serverError}</p></div>}
 
         <div className="form-group">
-          <label htmlFor="username">Username</label>
+          <label htmlFor="username">{t('usernameLabel')}</label>
           <input
             type="text"
             id="username"
@@ -122,7 +141,7 @@ function RegisterPage() {
         </div>
 
         <div className="form-group">
-          <label htmlFor="full_name">Full Name</label>
+          <label htmlFor="full_name">{t('fullNameLabel')}</label>
           <input
             type="text"
             id="full_name"
@@ -135,7 +154,7 @@ function RegisterPage() {
         </div>
 
         <div className="form-group">
-          <label htmlFor="email">Email</label>
+          <label htmlFor="email">{t('emailLabel')}</label>
           <input
             type="email"
             id="email"
@@ -148,7 +167,7 @@ function RegisterPage() {
         </div>
 
         <div className="form-group">
-          <label htmlFor="password">Password</label>
+          <label htmlFor="password">{t('passwordLabel')}</label>
           <input
             type="password"
             id="password"
@@ -161,7 +180,7 @@ function RegisterPage() {
         </div>
 
         <div className="form-group">
-          <label htmlFor="confirm_password">Confirm Password</label>
+          <label htmlFor="confirm_password">{t('confirmPasswordLabel')}</label>
           <input
             type="password"
             id="confirm_password"
@@ -174,7 +193,7 @@ function RegisterPage() {
         </div>
 
         <div className="form-group">
-          <label htmlFor="user_type">I am a:</label>
+          <label htmlFor="user_type">{t('userTypeLabel')}</label>
           <select
             id="user_type"
             name="user_type"
@@ -182,14 +201,17 @@ function RegisterPage() {
             onChange={handleChange}
             className={errors.user_type ? 'form-field-error' : ''}
           >
-            <option value="freelancer">Freelancer</option>
-            <option value="client">Client</option>
+            <option value="freelancer">{t('freelancerType')}</option>
+            <option value="client">{t('clientType')}</option>
           </select>
           {errors.user_type && <p className="error-message">{errors.user_type}</p>}
         </div>
 
-        <button type="submit" className="form-button">Register</button>
+        <button type="submit" className="form-button">{t('registerButton')}</button>
       </form>
+      <p style={{ textAlign: 'center', marginTop: '20px' }}>
+        <Link to="/login">{t('alreadyHaveAccount')}</Link>
+      </p>
     </div>
   );
 }

@@ -12,7 +12,8 @@ import LoginPage from './pages/LoginPage';
 import RegisterPage from './pages/RegisterPage';
 import ProjectsListPage from './pages/ProjectsListPage';
 import ProfilePage from './pages/ProfilePage';
-import ProjectDetailPage from './pages/ProjectDetailPage'; // Import ProjectDetailPage
+import ProjectDetailPage from './pages/ProjectDetailPage';
+import CreateProjectPage from './pages/CreateProjectPage'; // Import CreateProjectPage
 
 function App() {
   return (
@@ -45,6 +46,14 @@ function App() {
               element={
                 <ProtectedRoute>
                   <ProjectDetailPage />
+                </ProtectedRoute>
+              }
+            />
+             <Route
+              path="/projects/create"
+              element={
+                <ProtectedRoute> {/* Ensures user is at least authenticated */}
+                  <CreateProjectPage />
                 </ProtectedRoute>
               }
             />

@@ -78,3 +78,43 @@
 .form-errors li {
   margin-bottom: 5px;
 }
+
+/* RTL adjustments for forms */
+[dir="rtl"] .form-container {
+  /* No change needed for align-items: center */
+}
+
+[dir="rtl"] .form {
+  /* No change needed for flex-direction: column */
+}
+
+[dir="rtl"] .form-group label {
+  text-align: right; /* Align label text to the right */
+}
+
+[dir="rtl"] .form-group input,
+[dir="rtl"] .form-group select {
+  text-align: right; /* Align input text to the right for RTL languages */
+}
+/* For specific input types like email or tel, text-align: right might feel unnatural.
+   Can be overridden if necessary:
+[dir="rtl"] .form-group input[type="email"],
+[dir="rtl"] .form-group input[type="tel"] {
+  text-align: left; // Keep LTR for these inputs
+  direction: ltr; // Ensure text direction within input is also LTR
+}
+*/
+
+
+[dir="rtl"] .error-message {
+  text-align: right; /* Align error messages to the right */
+}
+
+[dir="rtl"] .form-errors {
+  text-align: right; /* Align general form errors to the right */
+}
+
+[dir="rtl"] .form-errors ul {
+  padding-left: auto; /* Remove default LTR padding */
+  padding-right: 0; /* Add padding to the right if needed, or keep auto */
+}

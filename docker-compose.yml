@@ -1,0 +1,48 @@
+# docker-compose.yml
+version: '3.8'
+
+services:
+  backend:
+    build:
+      context: ./backend
+      dockerfile: Dockerfile
+    container_name: freelance_backend
+    command: gunicorn --bind 0.0.0.0:8000 freelance_platform.wsgi:application
+    volumes:
+      - ./backend:/app/backend # Mount code for development (optional, remove for pure image-based prod)
+      # - static_volume:/app/backend/staticfiles # If serving static files via Django/Gunicorn in dev
+    expose:
+      - 8000
+    environment:
+      # - DJANGO_SETTINGS_MODULE=freelance_platform.settings_prod # Example for production settings
+      - DEBUG=0 # Example: Set DEBUG to False for production
+      # - SECRET_KEY=your_production_secret_key
+      # - DATABASE_URL=postgres://user:pass@db:5432/dbname # Example
+    depends_on:
+      - db # If using a database service like PostgreSQL
+
+  frontend:
+    build:
+      context: ./frontend
+      dockerfile: Dockerfile
+    container_name: freelance_frontend
+    ports:
+      - "80:80" # Map host port 80 to container port 80 (Nginx)
+    depends_on:
+      - backend
+
+  db: # Example PostgreSQL service
+    image: postgres:13-alpine
+    container_name: freelance_db
+    volumes:
+      - postgres_data:/var/lib/postgresql/data/
+    environment:
+      - POSTGRES_USER=freelanceuser
+      - POSTGRES_PASSWORD=freelancepassword
+      - POSTGRES_DB=freelancedb
+    ports:
+      - "5432:5432" # Expose DB port to host (optional, for direct access/debugging)
+
+volumes:
+  postgres_data:
+  # static_volume: # If using a named volume for static files

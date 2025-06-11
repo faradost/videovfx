@@ -21,12 +21,61 @@
   text-decoration: none;
 }
 
-.app-header nav ul {
-  list-style: none;
-  padding: 0;
-  margin: 0;
+.header-controls { /* New class */
   display: flex;
   align-items: center;
+  gap: 20px; /* Space between nav and language switcher */
+}
+
+.app-header nav ul {
+  list-style: none;
+  padding: 0; /* Reset padding */
+  margin: 0;  /* Reset margin */
+  display: flex;
+  align-items: center;
+}
+
+/* Default LTR styling for list items */
+.app-header nav ul li {
+  margin-left: 20px;
+}
+/* RTL override for list items */
+[dir="rtl"] .app-header nav ul li {
+  margin-left: auto; /* Remove LTR margin */
+  margin-right: 20px; /* Add RTL margin */
+}
+
+
+/* Specific handling for welcome message if it needs different spacing */
+[dir="rtl"] .welcome-message {
+  margin-left: 10px; /* Example: if it was margin-right in LTR */
+  margin-right: auto; /* Clear any LTR specific margin */
+}
+
+/* For the overall header content flex layout */
+[dir="rtl"] .header-content {
+  /* If using justify-content: space-between, the order of visual elements (h1 vs .header-controls)
+     might need to be swapped in the JSX for RTL, or use flex-direction: row-reverse on .header-content.
+     However, `direction: rtl` on a parent (like <html>) often handles this correctly for flex children.
+     Let's assume for now that the natural flex reversal due to `dir="rtl"` is sufficient.
+     If not, `flex-direction: row-reverse;` would be added here.
+  */
+}
+
+/* For the .header-controls (nav and language switcher) flex layout */
+[dir="rtl"] .header-controls {
+ /* Same as above, `direction: rtl` should reverse the order of nav and LanguageSwitcher.
+    If not, `flex-direction: row-reverse;` would be needed.
+ */
+  gap: 20px; /* Gap is direction-agnostic */
+}
+
+/* Ensure the first list item in RTL doesn't have the swapped margin if it's the first child */
+[dir="rtl"] .app-header nav ul li:first-child {
+  margin-right: 0;
+}
+[dir="ltr"] .app-header nav ul li:first-child { /* Explicitly for LTR if needed */
+  margin-left: 0;
 }
 
 .app-header nav ul li {

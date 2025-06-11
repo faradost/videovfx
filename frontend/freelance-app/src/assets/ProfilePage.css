@@ -1,0 +1,131 @@
+.profile-container {
+  max-width: 900px;
+  margin: 20px auto;
+  padding: 20px;
+  background-color: #f9f9f9;
+  border-radius: 8px;
+  box-shadow: 0 2px 10px rgba(0, 0, 0, 0.1);
+}
+
+.profile-header h2 {
+  text-align: center;
+  color: #333;
+  margin-bottom: 25px;
+  border-bottom: 1px solid #eee;
+  padding-bottom: 15px;
+}
+
+.profile-details-card {
+  background-color: #fff;
+  padding: 20px;
+  border-radius: 8px;
+  margin-bottom: 25px;
+  border: 1px solid #ddd;
+}
+
+.profile-details-card p {
+  margin: 8px 0;
+  font-size: 1.05em;
+  color: #555;
+}
+
+.profile-details-card strong {
+  color: #333;
+  margin-right: 8px;
+  min-width: 120px; /* Align values somewhat */
+  display: inline-block;
+}
+
+.profile-section {
+  margin-top: 30px;
+  padding-top: 20px;
+  border-top: 1px solid #eee;
+}
+
+.profile-section h3 {
+  color: #007bff;
+  margin-bottom: 15px;
+}
+
+.profile-list-item {
+  background-color: #fff;
+  border: 1px solid #ddd;
+  padding: 15px;
+  margin-bottom: 10px;
+  border-radius: 6px;
+  transition: box-shadow 0.2s ease-in-out;
+}
+
+.profile-list-item:hover {
+  box-shadow: 0 0 8px rgba(0,0,0,0.1);
+}
+
+.profile-list-item p {
+  margin: 5px 0;
+  font-size: 0.95em;
+}
+
+.profile-list-item a {
+  color: #007bff;
+  text-decoration: none;
+  font-weight: bold;
+}
+
+.profile-list-item a:hover {
+  text-decoration: underline;
+}
+
+.loading-profile-section,
+.error-profile-section,
+.no-data-message {
+  text-align: center;
+  padding: 15px;
+  font-style: italic;
+  color: #777;
+}
+
+.error-profile-section {
+  color: #dc3545;
+}
+
+.skills-list, .bio-text {
+    white-space: pre-wrap; /* Respect newlines in bio/skills */
+}
+
+/* RTL adjustments for Profile Page */
+[dir="rtl"] .profile-header h2 {
+  text-align: right;
+}
+
+[dir="rtl"] .profile-details-card p {
+  /* Individual text elements within p will follow dir, but if p itself needs right-align: */
+  /* text-align: right; */
+}
+
+[dir="rtl"] .profile-details-card strong {
+  margin-left: 8px; /* Swap margin from right to left */
+  margin-right: auto;
+}
+
+[dir="rtl"] .profile-section h3 {
+  text-align: right;
+}
+
+[dir="rtl"] .profile-list-item {
+  text-align: right; /* General alignment for list item content */
+}
+
+[dir="rtl"] .profile-list-item a {
+  /* Link text will follow dir */
+}
+
+[dir="rtl"] .loading-profile-section,
+[dir="rtl"] .error-profile-section,
+[dir="rtl"] .no-data-message {
+  text-align: right;
+}
+
+[dir="rtl"] .skills-list,
+[dir="rtl"] .bio-text {
+    text-align: right; /* If the content itself should be right-aligned, not just the block */
+}

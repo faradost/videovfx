@@ -1,13 +1,15 @@
 import React, { useState, useEffect } from 'react';
-import { useNavigate, useLocation } from 'react-router-dom';
+import { useNavigate, useLocation, Link } from 'react-router-dom'; // Added Link
 import { useAuth } from '../contexts/AuthContext';
 import apiClient from '../services/api';
-import '../assets/forms.css'; // Import basic form styling
+import { useTranslation } from 'react-i18next'; // Import useTranslation
+import '../assets/forms.css';
 
 function LoginPage() {
   const navigate = useNavigate();
   const location = useLocation();
   const auth = useAuth();
+  const { t } = useTranslation(); // Initialize useTranslation
 
   const [formData, setFormData] = useState({
     email: '',
@@ -17,12 +19,11 @@ function LoginPage() {
   const [successMessage, setSuccessMessage] = useState('');
 
   useEffect(() => {
-    // Check for registration success message
     const queryParams = new URLSearchParams(location.search);
     if (queryParams.get('registered') === 'true') {
-      setSuccessMessage('Registration successful! Please log in.');
+      setSuccessMessage(t('registrationSuccessMessage'));
     }
-  }, [location.search]);
+  }, [location.search, t]);
 
   const handleChange = (e) => {
     const { name, value } = e.target;
@@ -36,7 +37,7 @@ function LoginPage() {
     setSuccessMessage('');
 
     if (!formData.email || !formData.password) {
-      setError('Both email and password are required.');
+      setError(t('fillAllFieldsError')); // Example of a more generic message
       return;
     }
 
@@ -64,16 +65,19 @@ function LoginPage() {
 
         navigate('/'); // Navigate to home page or dashboard
       } else {
-        setError('Login failed: No token received.');
+        setError(t('loginFailedError')); // More specific generic failure
       }
     } catch (err) {
       if (err.response && err.response.data && err.response.data.detail) {
-        setError(err.response.data.detail);
+        // Assuming backend sends "No active account found with the given credentials"
+        // which can be translated or used as is if it's a key itself.
+        // For now, use a generic key if specific backend messages aren't translation keys.
+        setError(t('loginFailedError'));
       } else if (err.response && err.response.status === 400) {
-         setError('Invalid request. Please check your input.');
+         setError(t('fillAllFieldsError')); // Or a more specific 400 error message key
       }
       else {
-        setError('Login failed. Please check your credentials or try again later.');
+        setError(t('genericLoginError'));
       }
       console.error('Login error:', err);
     }
@@ -81,13 +85,13 @@ function LoginPage() {
 
   return (
     <div className="form-container">
-      <h2>Login</h2>
+      <h2>{t('loginPageTitle')}</h2>
       {successMessage && <p className="success-message">{successMessage}</p>}
       <form onSubmit={handleSubmit} className="form" noValidate>
         {error && <div className="form-errors"><p>{error}</p></div>}
 
         <div className="form-group">
-          <label htmlFor="email">Email</label>
+          <label htmlFor="email">{t('emailLabel')}</label>
           <input
             type="email"
             id="email"
@@ -99,7 +103,7 @@ function LoginPage() {
         </div>
 
         <div className="form-group">
-          <label htmlFor="password">Password</label>
+          <label htmlFor="password">{t('passwordLabel')}</label>
           <input
             type="password"
             id="password"
@@ -110,8 +114,11 @@ function LoginPage() {
           />
         </div>
 
-        <button type="submit" className="form-button">Login</button>
+        <button type="submit" className="form-button">{t('loginButton')}</button>
       </form>
+      <p style={{ textAlign: 'center', marginTop: '20px' }}>
+        <Link to="/register">{t('dontHaveAccount')}</Link>
+      </p>
     </div>
   );
 }

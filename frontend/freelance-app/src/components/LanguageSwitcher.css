@@ -1,0 +1,42 @@
+.language-switcher {
+  display: flex;
+  align-items: center;
+  gap: 8px; /* Space between buttons */
+}
+
+.language-switcher button {
+  padding: 5px 10px;
+  border: 1px solid #ccc;
+  background-color: #f0f0f0;
+  cursor: pointer;
+  border-radius: 4px;
+  font-size: 0.9em;
+  transition: background-color 0.2s, color 0.2s;
+}
+
+.language-switcher button:hover:not(:disabled) {
+  background-color: #e0e0e0;
+}
+
+.language-switcher button:disabled {
+  background-color: #007bff;
+  color: white;
+  border-color: #007bff;
+  cursor: default;
+}
+
+.language-switcher button.active {
+  /* This class might be redundant if using :disabled style as above for active state */
+  font-weight: bold;
+}
+
+/* RTL adjustments for Language Switcher */
+[dir="rtl"] .language-switcher {
+  /* Flexbox with `gap` should handle button order correctly due to parent `dir="rtl"`.
+     No changes needed unless specific re-ordering independent of text direction is desired.
+  */
+}
+
+[dir="rtl"] .language-switcher button {
+  /* Text within buttons will follow dir. No changes to padding/border/etc. needed by default. */
+}

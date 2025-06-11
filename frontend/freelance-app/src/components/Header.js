@@ -1,11 +1,14 @@
 import React from 'react';
 import { Link, useNavigate } from 'react-router-dom';
 import { useAuth } from '../contexts/AuthContext';
-import './Header.css'; // Create a simple CSS file for header styling
+import { useTranslation } from 'react-i18next';
+import LanguageSwitcher from './LanguageSwitcher'; // Import LanguageSwitcher
+import './Header.css';
 
 function Header() {
   const { isAuthenticated, user, logout, loading } = useAuth();
   const navigate = useNavigate();
+  const { t } = useTranslation(); // Initialize useTranslation hook
 
   const handleLogout = () => {
     logout();
@@ -16,7 +19,7 @@ function Header() {
     return (
       <header className="app-header">
         <div className="header-content">
-          <h1><Link to="/">Freelance Platform</Link></h1>
+          <h1><Link to="/">{t('appTitle')}</Link></h1>
           <nav>
             <p>Loading...</p>
           </nav>
@@ -28,31 +31,37 @@ function Header() {
   return (
     <header className="app-header">
       <div className="header-content">
-        <h1><Link to="/">Freelance Platform</Link></h1>
-        <nav>
-          <ul>
-            <li><Link to="/projects">Projects</Link></li>
-            {isAuthenticated ? (
+          <h1><Link to="/">{t('appTitle')}</Link></h1>
+          <div className="header-controls"> {/* Wrapper for nav and language switcher */}
+            <nav>
+              <ul>
+                <li><Link to="/projects">{t('projects')}</Link></li>
+                {isAuthenticated ? (
               <>
-                <li><Link to="/profile">My Profile</Link></li>
-                {/* Add other authenticated links like "Dashboard", "My Projects" etc. */}
+                  <li><Link to="/profile">{t('myProfile')}</Link></li>
+                {user?.user_type === 'client' && (
+                    <li><Link to="/projects/create">{t('createProject')}</Link></li>
+                )}
                 <li>
                   <span className="welcome-message">
-                    Welcome, {user?.full_name || user?.username || user?.email || 'User'}!
+                      {t('welcomeMessage').split(' ')[0]} {user?.full_name || user?.username || user?.email || 'User'}!
+                      {/* A bit simplistic for "Welcome, User!" might need better handling for full welcome message */}
                   </span>
                 </li>
                 <li>
-                  <button onClick={handleLogout} className="logout-button">Logout</button>
+                    <button onClick={handleLogout} className="logout-button">{t('logout')}</button>
                 </li>
               </>
             ) : (
               <>
-                <li><Link to="/login">Login</Link></li>
-                <li><Link to="/register">Register</Link></li>
+                  <li><Link to="/login">{t('login')}</Link></li>
+                  <li><Link to="/register">{t('register')}</Link></li>
               </>
             )}
-          </ul>
-        </nav>
+              </ul>
+            </nav>
+            <LanguageSwitcher />
+          </div>
       </div>
     </header>
   );

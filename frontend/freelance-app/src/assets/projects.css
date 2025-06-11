@@ -155,3 +155,121 @@
   color: #777;
   padding: 15px;
 }
+
+/* Styles for Bid Action Buttons */
+.bid-actions {
+  margin-top: 10px;
+  display: flex;
+  gap: 10px; /* Space between buttons */
+}
+
+.action-button {
+  padding: 6px 12px;
+  border: none;
+  border-radius: 4px;
+  color: white;
+  cursor: pointer;
+  font-size: 0.9em;
+  transition: opacity 0.2s ease-in-out;
+}
+
+.action-button:hover {
+  opacity: 0.85;
+}
+
+.action-button.accept {
+  background-color: #28a745; /* Green */
+}
+
+.action-button.reject {
+  background-color: #dc3545; /* Red */
+}
+
+.success-message { /* General success message styling, can be reused */
+  color: #28a745;
+  padding: 10px;
+  margin-bottom: 15px;
+  text-align: center;
+  border: 1px solid #c3e6cb;
+  background-color: #d4edda;
+  border-radius: 4px;
+}
+
+/* RTL adjustments for Projects List and Detail Page */
+[dir="rtl"] .projects-list-container h2,
+[dir="rtl"] .project-detail-container h2, /* Project Title on detail page */
+[dir="rtl"] .bids-section h3 {
+  text-align: right; /* Align headings to the right */
+}
+
+[dir="rtl"] .loading-message,
+[dir="rtl"] .error-message-projects,
+[dir="rtl"] .no-bids-message,
+[dir="rtl"] .success-message { /* General messages */
+  text-align: right;
+}
+
+
+/* Project Item Card (Grid) */
+[dir="rtl"] .project-item-card {
+  /* text-align will be inherited or can be set to right if needed for all content */
+}
+
+[dir="rtl"] .project-item-card h3 {
+  /* Assuming project title itself can be RTL or LTR based on content */
+  /* No change needed unless specific alignment is desired beyond natural direction */
+}
+
+[dir="rtl"] .project-item-card .project-detail strong {
+  margin-left: 8px; /* Swap margin from right to left */
+  margin-right: auto;
+}
+
+[dir="rtl"] .project-description {
+  text-align: right; /* Or justify, depending on preference for RTL text blocks */
+}
+
+[dir="rtl"] .view-details-button {
+  /* Text within button will follow dir, no change needed for button itself */
+}
+
+
+/* Project Detail Page Specifics */
+[dir="rtl"] .project-meta-info p {
+  text-align: right;
+}
+[dir="rtl"] .project-meta-info strong {
+  margin-left: 8px; /* Swap margin */
+  margin-right: auto;
+}
+
+[dir="rtl"] .project-full-description {
+  text-align: right; /* Or justify */
+}
+
+/* Bids Section */
+[dir="rtl"] .bid-item {
+  text-align: right; /* General alignment for bid item content */
+}
+
+[dir="rtl"] .bid-item p strong {
+  /* margin already handled by .project-meta-info strong if similar structure,
+     otherwise, apply margin-left and margin-right: auto here too */
+}
+
+[dir="rtl"] .bid-actions {
+  /* Flexbox direction: rtl on html/body should handle order for flex items by default.
+     If explicit reversal is needed: flex-direction: row-reverse; */
+  /* For gap, it's direction-agnostic. */
+}
+
+[dir="rtl"] .action-button.accept {
+  /* margin-right: 0; (if it was set for LTR) */
+  /* margin-left: 10px; (if specific spacing needed in RTL and not handled by gap) */
+}
+/* Example if margin was used on buttons before gap:
+[dir="rtl"] .action-button + .action-button {
+  margin-left: 0;
+  margin-right: 10px;
+}
+*/
