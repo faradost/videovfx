@@ -1,0 +1,91 @@
+<!DOCTYPE html>
+<html lang="fa" dir="rtl">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>سایت فریلنسری</title>
+    <link href="https://cdn.jsdelivr.net/npm/tailwindcss@2.2.19/dist/tailwind.min.css" rel="stylesheet">
+    <link href="frontend/css/style.css" rel="stylesheet">
+</head>
+<body class="bg-gray-50 text-gray-800">
+    <header class="bg-blue-600 text-white p-4 shadow-lg">
+        <nav class="container mx-auto flex flex-wrap justify-between items-center">
+            <a href="index.html" class="text-2xl font-bold hover:text-blue-200 transition-colors">سایت فریلنسری</a>
+            <div class="space-x-reverse space-x-2">
+                <a href="browse_projects.html" class="hover:text-blue-200 px-3 py-2 rounded-md text-sm font-medium">مرور پروژه ها</a>
+                <span id="authLinks">
+                    <a href="login.html" class="hover:text-blue-200 px-3 py-2 rounded-md text-sm font-medium">ورود</a>
+                    <a href="register.html" class="bg-green-500 hover:bg-green-600 px-3 py-2 rounded-md text-sm font-medium">ثبت نام</a>
+                </span>
+                <a href="dashboard.html" id="dashboardLink" class="hidden hover:text-blue-200 px-3 py-2 rounded-md text-sm font-medium">داشبورد</a>
+                <button id="logoutButton" class="hidden btn btn-danger px-3 py-1 text-sm">خروج</button>
+            </div>
+        </nav>
+    </header>
+
+    <main class="container mx-auto p-6">
+        <section class="text-center py-12 bg-white shadow-lg rounded-lg">
+            <h2 class="text-4xl font-bold text-gray-800 mb-4">به پلتفرم فریلنسری ما خوش آمدید</h2>
+            <p class="text-lg text-gray-600 mb-8 max-w-2xl mx-auto">
+                اینجا مکانی برای کارفرمایان برای یافتن استعدادهای برتر و برای فریلنسرها برای یافتن فرصت های شغلی هیجان انگیز است.
+            </p>
+            <div>
+                <a href="browse_projects.html" class="btn btn-primary text-lg px-8 py-3 mr-2 ml-2">مشاهده پروژه ها</a>
+                <a href="register.html" id="registerLinkMain" class="btn btn-success text-lg px-8 py-3">ثبت نام کنید</a>
+                <a href="post_project.html" id="postProjectLinkMain" class="btn btn-warning text-lg px-8 py-3 hidden">ثبت پروژه جدید</a>
+            </div>
+        </section>
+
+        <section class="py-12">
+            <h3 class="text-2xl font-semibold text-center text-gray-700 mb-8">چرا پلتفرم ما؟</h3>
+            <div class="grid md:grid-cols-3 gap-8 text-center">
+                <div class="bg-white p-6 rounded-lg shadow-md">
+                    <div class="text-blue-500 mb-4">
+                        <svg class="w-12 h-12 mx-auto" fill="none" stroke="currentColor" viewBox="0 0 24 24" xmlns="http://www.w3.org/2000/svg"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M21 21l-6-6m2-5a7 7 0 11-14 0 7 7 0 0114 0z"></path></svg>
+                    </div>
+                    <h4 class="text-xl font-semibold mb-2">دسترسی به متخصصین</h4>
+                    <p class="text-gray-600">بهترین فریلنسرها را برای پروژه خود بیابید.</p>
+                </div>
+                <div class="bg-white p-6 rounded-lg shadow-md">
+                    <div class="text-blue-500 mb-4">
+                        <svg class="w-12 h-12 mx-auto" fill="none" stroke="currentColor" viewBox="0 0 24 24" xmlns="http://www.w3.org/2000/svg"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M9 12l2 2 4-4m5.618-4.016A11.955 11.955 0 0112 2.944a11.955 11.955 0 01-8.618 3.04A12.02 12.02 0 003 9c0 5.591 3.824 10.29 9 11.622 5.176-1.332 9-6.03 9-11.622 0-1.042-.133-2.052-.382-3.016z"></path></svg>
+                    </div>
+                    <h4 class="text-xl font-semibold mb-2">امن و مطمئن</h4>
+                    <p class="text-gray-600">پرداخت امن و ضمانت انجام کار.</p>
+                </div>
+                <div class="bg-white p-6 rounded-lg shadow-md">
+                    <div class="text-blue-500 mb-4">
+                        <svg class="w-12 h-12 mx-auto" fill="none" stroke="currentColor" viewBox="0 0 24 24" xmlns="http://www.w3.org/2000/svg"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M13 10V3L4 14h7v7l9-11h-7z"></path></svg>
+                    </div>
+                    <h4 class="text-xl font-semibold mb-2">سریع و کارآمد</h4>
+                    <p class="text-gray-600">پروژه خود را به سرعت پیش ببرید.</p>
+                </div>
+            </div>
+        </section>
+    </main>
+
+    <footer>
+        <p>&copy; 2023 تمامی حقوق محفوظ است. طراحی شده توسط Jules.</p>
+    </footer>
+    <script src="frontend/js/auth_ui.js"></script>
+    <script src="frontend/js/main.js"></script>
+    <script>
+        // Small script to update main page buttons based on auth status
+        document.addEventListener('DOMContentLoaded', function() {
+            const currentUser = JSON.parse(localStorage.getItem('currentUser'));
+            const registerLinkMain = document.getElementById('registerLinkMain');
+            const postProjectLinkMain = document.getElementById('postProjectLinkMain');
+
+            if (currentUser && currentUser.user_id) {
+                if (registerLinkMain) registerLinkMain.classList.add('hidden');
+                if (postProjectLinkMain && currentUser.user_type === 'client') {
+                    postProjectLinkMain.classList.remove('hidden');
+                }
+            } else {
+                if (registerLinkMain) registerLinkMain.classList.remove('hidden');
+                if (postProjectLinkMain) postProjectLinkMain.classList.add('hidden');
+            }
+        });
+    </script>
+</body>
+</html>

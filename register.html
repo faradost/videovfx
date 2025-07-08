@@ -1,0 +1,80 @@
+<!DOCTYPE html>
+<html lang="fa" dir="rtl">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>ثبت نام - سایت فریلنسری</title>
+    <link href="https://cdn.jsdelivr.net/npm/tailwindcss@2.2.19/dist/tailwind.min.css" rel="stylesheet">
+    <link href="frontend/css/style.css" rel="stylesheet">
+</head>
+<body class="bg-gray-50 flex items-center justify-center min-h-screen p-4">
+    <div class="bg-white p-8 rounded-xl shadow-xl w-full max-w-lg">
+        <div class="text-center mb-8">
+            <a href="index.html" class="text-2xl font-bold text-blue-600 hover:text-blue-700 transition-colors">سایت فریلنسری</a>
+            <h2 class="text-3xl font-semibold text-gray-700 mt-2">ایجاد حساب کاربری جدید</h2>
+        </div>
+
+        <div id="message-area" class="mb-4"></div>
+
+        <form id="registerForm" method="POST" class="space-y-5">
+            <div>
+                <label for="username">نام کاربری</label>
+                <input type="text" id="username" name="username" required>
+                <p id="username_error" class="form-error-text"></p>
+            </div>
+
+            <div>
+                <label for="email">ایمیل</label>
+                <input type="email" id="email" name="email" required>
+                <p id="email_error" class="form-error-text"></p>
+            </div>
+
+            <div class="grid grid-cols-1 md:grid-cols-2 gap-x-4 gap-y-5">
+                <div>
+                    <label for="password">رمز عبور</label>
+                    <input type="password" id="password" name="password" required>
+                    <p id="password_error" class="form-error-text"></p>
+                </div>
+                <div>
+                    <label for="password_confirm">تکرار رمز عبور</label>
+                    <input type="password" id="password_confirm" name="password_confirm" required>
+                    <p id="password_confirm_error" class="form-error-text"></p>
+                </div>
+            </div>
+
+            <div>
+                <label for="user_type">نوع حساب</label>
+                <select id="user_type" name="user_type" required>
+                    <option value="" disabled selected>انتخاب کنید...</option>
+                    <option value="client">کارفرما (نیازمند به متخصص)</option>
+                    <option value="freelancer">فریلنسر (متخصص)</option>
+                </select>
+                <p id="user_type_error" class="form-error-text"></p>
+            </div>
+
+            <div>
+                <button type="submit"
+                        class="w-full btn btn-primary py-3 text-base font-semibold flex justify-center items-center">
+                    ثبت نام
+                </button>
+            </div>
+        </form>
+
+        <div class="mt-8 text-center">
+            <p class="text-sm text-gray-600">
+                قبلاً حساب کاربری ایجاد کرده‌اید؟
+                <a href="login.html" class="font-medium text-blue-600 hover:text-blue-500 hover:underline">
+                    وارد شوید
+                </a>
+            </p>
+            <p class="mt-2 text-sm text-gray-600">
+                <a href="index.html" class="text-gray-500 hover:text-gray-700 hover:underline">
+                    بازگشت به صفحه اصلی
+                </a>
+            </p>
+        </div>
+    </div>
+
+    <script src="frontend/js/register.js"></script>
+</body>
+</html>

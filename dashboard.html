@@ -1,0 +1,88 @@
+<!DOCTYPE html>
+<html lang="fa" dir="rtl">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>داشبورد - سایت فریلنسری</title>
+    <link href="https://cdn.jsdelivr.net/npm/tailwindcss@2.2.19/dist/tailwind.min.css" rel="stylesheet">
+    <link href="frontend/css/style.css" rel="stylesheet">
+</head>
+<body class="bg-gray-50 text-gray-800">
+    <header class="bg-blue-600 text-white p-4 shadow-lg">
+        <nav class="container mx-auto flex flex-wrap justify-between items-center">
+            <a href="index.html" class="text-2xl font-bold hover:text-blue-200 transition-colors">سایت فریلنسری</a>
+            <div class="space-x-reverse space-x-2">
+                <a href="browse_projects.html" class="hover:text-blue-200 px-3 py-2 rounded-md text-sm font-medium">مرور پروژه ها</a>
+                <a href="user_profile.html" class="hover:text-blue-200 px-3 py-2 rounded-md text-sm font-medium">پروفایل من</a>
+                <button id="logoutButton" class="btn btn-danger px-3 py-1 text-sm">خروج</button>
+            </div>
+        </nav>
+    </header>
+
+    <main class="container mx-auto p-4 sm:p-6 mt-6">
+        <div id="welcomeMessage" class="mb-8 p-6 bg-white rounded-lg shadow-lg">
+            <h1 class="text-3xl font-semibold text-gray-800">داشبورد <span id="usernamePlaceholder" class="text-blue-600">[نام کاربری]</span></h1>
+            <p class="text-gray-600">نوع حساب شما: <span id="userTypePlaceholder" class="font-medium">[نوع حساب]</span>.</p>
+        </div>
+
+        <div id="dashboardContent" class="grid grid-cols-1 lg:grid-cols-3 gap-6">
+
+            <!-- Main content area (Client or Freelancer specific) -->
+            <div class="lg:col-span-2 space-y-6">
+                <!-- Client View -->
+                <section id="clientDashboard" class="hidden card">
+                    <div class="flex justify-between items-center mb-4">
+                        <h2 class="text-2xl font-semibold text-gray-700">پروژه های من (کارفرما)</h2>
+                        <a href="post_project.html" class="btn btn-success">
+                            ایجاد پروژه جدید <span class="mr-1">+</span>
+                        </a>
+                    </div>
+                    <div id="clientProjectsList">
+                        {-- Projects posted by the client will be listed here by dashboard.js --}
+                    </div>
+                </section>
+
+                <!-- Freelancer View -->
+                <section id="freelancerDashboard" class="hidden space-y-6">
+                    <div class="card">
+                        <div class="flex justify-between items-center mb-4">
+                             <h2 class="text-2xl font-semibold text-gray-700">پیشنهادهای من</h2>
+                             <a href="browse_projects.html" class="btn btn-primary">
+                                جستجوی پروژه های جدید &rarr;
+                            </a>
+                        </div>
+                        <div id="freelancerBidsList">
+                            {-- Bids submitted by the freelancer will be listed here --}
+                        </div>
+                    </div>
+                    <div class="card">
+                        <h2 class="text-2xl font-semibold text-gray-700 mb-4">پروژه های در حال انجام</h2>
+                        <div id="freelancerAssignedProjectsList">
+                            {-- Projects assigned to the freelancer will be listed here --}
+                        </div>
+                    </div>
+                </section>
+            </div>
+
+            <!-- Sidebar area (Notifications) -->
+            <aside class="lg:col-span-1 space-y-6">
+                <section class="card">
+                    <h2 class="text-2xl font-semibold text-gray-700 mb-4">اعلانات</h2>
+                    <div id="notificationsArea">
+                        {-- Notifications will be listed here --}
+                    </div>
+                </section>
+                 <!-- Potentially other widgets like quick stats, profile completion prompt, etc. -->
+            </aside>
+
+        </div>
+    </main>
+
+    <footer>
+        <p>&copy; 2023 تمامی حقوق محفوظ است. طراحی شده توسط Jules.</p>
+    </footer>
+
+    <script src="frontend/js/auth_ui.js"></script>
+    <script src="frontend/js/dashboard.js"></script>
+</body>
+</html>
